@@ -1,12 +1,20 @@
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 export default function usePosts() {
-  const posts = ref<string[]>([])
-  posts.value = ['post 1', 'post 2']
+  const posts = ref<any[]>([])
 
-  const addPost = (post: string) => {
-    posts.value.push(post)
+  const getPosts = async () =>
+    (posts.value = await fetch(
+      'https://jsonplaceholder.typicode.com/posts',
+    ).then((res) => res.json()))
+
+  onMounted(() => getPosts())
+
+  const addPost = (postTitle: string) => {
+    posts.value.push({ title: postTitle })
+    console.log('add')
   }
+
   return {
     posts,
     addPost,

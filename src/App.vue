@@ -9,7 +9,7 @@ import DelayedPosts from './components/Posts/DelayedPosts.vue'
   <GreetingText msg="Custom message" />
   <WelcomeList />
   <Posts />
-  <DelayedPosts />
+  <!-- <DelayedPosts /> -->
 </template>
 
 <style scoped></style>
