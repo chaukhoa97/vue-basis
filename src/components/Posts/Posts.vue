@@ -1,34 +1,51 @@
 <script setup lang="ts">
 import usePosts from '@/hooks/usePosts'
+import { ref, computed } from 'vue'
 import Post from './Post.vue'
-import { onMounted, ref, defineProps } from 'vue'
+import AddPostForm from './AddPostForm.vue'
 
 const { posts, addPost } = usePosts()
-const searchInput = ref('')
-const searchInputChangeCount = ref(0)
 
-const handleInputChange = () => {
-  searchInputChangeCount.value++
+const searchInput = ref('')
+const isAddingPost = ref(false)
+
+const filteredPosts = computed(() =>
+  posts.value.filter((n) =>
+    n.title.toLowerCase().includes(searchInput.value.toLowerCase()),
+  ),
+)
+
+const handleCancelAdding = () => {
+  isAddingPost.value = false
 }
 
-const handlePostDelete = (index: number) => {
-  posts.value.splice(index, 1)
+const handleAdd = (input: string) => {
+  addPost(input)
+  isAddingPost.value = false
 }
 </script>
 
 <template>
-  <h1>Posts.vue</h1>
-  <h3 v-for="(post, index) in posts" :key="post">
-    <Post :post="post" @delete-post="handlePostDelete(index)" />
-  </h3>
-  <button @click="addPost(searchInput)">Add post</button>
-  <!-- @input (fires when user changes input value) instead of @change (fires when user changed value and unfocus input (for example clicked somewhere outside)) -->
-  <input
-    v-model="searchInput"
-    placeholder="Enter search"
-    @input="handleInputChange"
-  />
-  Input has changed {{ searchInputChangeCount }} times.
+  <div>
+    <input
+      v-model="searchInput"
+      placeholder="Filter post"
+      class="mx-2 mb-4 input input-md input-primary w-96"
+    />
+    <div v-for="(post, index) in filteredPosts" :key="post.id">
+      <Post :post="post" :search-input="searchInput" />
+    </div>
+    <button
+      v-if="!isAddingPost"
+      @click="() => (isAddingPost = true)"
+      class="mx-2 btn btn-accent btn-lg"
+    >
+      Add post
+    </button>
+    <template v-else>
+      <AddPostForm @cancel-adding="handleCancelAdding" @add="handleAdd" />
+    </template>
+  </div>
 </template>
 
 <style lang="scss" scoped></style>
