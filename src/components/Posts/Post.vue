@@ -40,7 +40,7 @@ const handleDeletePost = () => {
 
 <template>
   <template v-if="!removed">
-    <template v-if="isEdit">
+    <div v-if="isEdit">
       <input
         v-if="isEdit"
         v-model="editInputValue"
@@ -52,8 +52,8 @@ const handleDeletePost = () => {
       <span @click="handleEditCancel" class="mx-2 btn btn-sm btn-secondary"
         >Cancel</span
       >
-    </template>
-    <template v-else>
+    </div>
+    <div v-else>
       <span v-html="highlightTitle(title, searchInput)" class="m-2" />
       <span @click="handleEditClick" class="mx-2 btn btn-primary btn-sm"
         >Edit</span
@@ -61,7 +61,7 @@ const handleDeletePost = () => {
       <span @click="handleDeletePost" class="btn btn-error btn-outline btn-sm"
         >X</span
       >
-    </template>
+    </div>
   </template>
   <i v-else @click="handleDeletePost" class="mx-2 cursor-pointer">Undo</i>
 </template>

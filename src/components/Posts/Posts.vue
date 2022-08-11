@@ -32,9 +32,12 @@ const handleAdd = (input: string) => {
       placeholder="Filter post"
       class="mx-2 mb-4 input input-md input-primary w-96"
     />
-    <div v-for="(post, index) in filteredPosts" :key="post.id">
-      <Post :post="post" :search-input="searchInput" />
-    </div>
+    <Post
+      v-for="(post, index) in filteredPosts"
+      :key="post.id"
+      :post="post"
+      :search-input="searchInput"
+    />
     <button
       v-if="!isAddingPost"
       @click="() => (isAddingPost = true)"
@@ -42,9 +45,7 @@ const handleAdd = (input: string) => {
     >
       Add post
     </button>
-    <template v-else>
-      <AddPostForm @cancel-adding="handleCancelAdding" @add="handleAdd" />
-    </template>
+    <AddPostForm @cancel-adding="handleCancelAdding" @add="handleAdd" v-else />
   </div>
 </template>
 
