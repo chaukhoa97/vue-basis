@@ -28,7 +28,7 @@ const handleAdd = (input: string) => {
 <template>
   <div>
     <input
-      v-model="searchInput"
+      v-model.lazy="searchInput"
       placeholder="Filter post"
       class="mx-2 mb-4 input input-md input-primary w-96"
     />

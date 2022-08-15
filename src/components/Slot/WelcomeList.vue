@@ -5,6 +5,7 @@ import WelcomeItem from './WelcomeItem.vue'
 
 <template>
   <WelcomeItem class="p-2 mb-2 border">
+    Default nè
     <template v-slot:icon>
       <CommunityIcon />
     </template>

@@ -6,6 +6,8 @@ const message = 'Text'
   <div class="flex gap-2">
     <slot name="icon" />
     <slot name="heading" />
-    <slot :message="message" :count="1" />
+    <slot :message="message" :count="1">
+      <!-- Default content here -->
+    </slot>
   </div>
 </template>
