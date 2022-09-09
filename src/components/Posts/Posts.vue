@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import usePosts from '@/hooks/usePosts'
+import usePosts from '@hooks/usePosts'
 import { ref, computed } from 'vue'
 import Post from './Post.vue'
 import AddPostForm from './AddPostForm.vue'
